@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home {
+  background-color: #222222;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../home2.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__p {
+    font-family: "Varela", sans-serif;
+    font-size: 18px;
+    text-align: center;
+    @media (min-width: 768px) {
+      font-size: 23px;
+    }
+    @media (min-width: 1024px) {
+      font-size: 30px;
+    }
+    padding-left: 20%;
+    padding-right: 20%;
+    color: rgb(211, 197, 197);
+    line-height: 20px;
+    @media (min-width: 768px) {
+      line-height: 25px;
+    }
+
+    @media (min-width: 1024px) {
+      line-height: 35px;
+    }
+  }
+  &__btn {
+    font-size: 25px;
+    font-family: "Merienda";
+    color: #53dd6c;
+    transition: 0.3s;
+    &:hover {
+      cursor: pointer;
+      color: #004fff;
+      transform: scale(1.1);
+    }
+  }
+}
