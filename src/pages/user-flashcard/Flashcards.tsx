@@ -9,6 +9,7 @@ export interface Card {
   username: string;
   frontSite: string;
   backSite: string;
+  cardId: string;
 }
 export const Flashcards = () => {
   const [user] = useAuthState(auth);

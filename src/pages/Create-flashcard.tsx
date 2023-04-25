@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -28,12 +28,12 @@ export const CreateFlashcard = () => {
   const cardsRef = collection(db, "Flashcards");
 
   const onCreatePost = async (data: CreateFormData) => {
-    console.log(user?.displayName, user?.uid, data);
-    await addDoc(cardsRef, {
+    const newDocRef = await addDoc(cardsRef, {
       ...data,
       username: user?.displayName,
       userId: user?.uid,
     });
+    await updateDoc(newDocRef, { cardId: newDocRef.id });
   };
   return (
     <form onSubmit={handleSubmit(onCreatePost)} className="form">
