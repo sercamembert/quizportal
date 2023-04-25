@@ -5,5 +5,9 @@ export const Home = () => {
     const result = await signInWithPopup(auth, provider);
     console.log(result);
   };
-  return <div className="home">Home</div>;
+  return (
+    <div className="home">
+      <button onClick={signInWithGoogle}>Login with google</button>
+    </div>
+  );
 };
