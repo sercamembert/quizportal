@@ -1,67 +1,198 @@
 .header {
-  width: 100%;
-  height: 100px;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  padding: 5px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  background-color: $color-black;
-  gap: 20px;
-  &__link {
-    color: #53dd6c;
-    font-family: $font-super;
-    transition: 0.3s;
-    font-size: 15px;
+  height: 50px;
+  font-size: 21px;
+  font-family: $font-Coolvetica;
+  &__logo-container {
+    transform: translateY(7px);
     @media (min-width: 768px) {
-      font-size: 22px;
-    }
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-    text-decoration: none;
-  }
-  &__img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 30px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  &__dropdown {
-    position: absolute;
-    top: 75px;
-    right: 0px;
-    background-color: $color-black;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 10;
-    font-size: 16px;
-    color: $color-text-grey;
-    font-weight: bold;
-    font-family: $font-super;
-  }
-  &__dropdown-Link {
-    color: $color-text-grey;
-    text-decoration: none;
-    &:hover {
-      color: $color-green;
-    }
-  }
-  &__dropdown-link {
-    transition: 0.3s;
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-      color: $color-green;
+      margin-left: 30px;
     }
   }
 
-  &__user {
-    font-size: 20px;
-    text-align: center;
+  &__links {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $color-blue-main;
+    transition: 0.3s;
+
+    &:hover {
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: $color-yellow;
+      color: black;
+    }
+
+    &--media-display {
+      display: none;
+      @media (min-width: 768px) {
+        display: inherit;
+      }
+    }
+
+    &--mobile {
+      display: none;
+      @media (min-width: 475px) {
+        display: inherit;
+      }
+    }
+
+    &--background {
+      background-color: $color-blue-main;
+      color: white;
+      padding: 4px 5px;
+      border-radius: 10px;
+    }
+  }
+
+  &__plus {
+    background-color: $color-blue-main;
+    border-radius: 50%;
+    font-size: 28px;
+    color: white;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    margin-right: 10px;
+    transition: 0.3s;
+    &--dropdown {
+      position: inherit;
+    }
+  }
+
+  &__profile-image-container {
+    img {
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  &__profile-main {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+    }
+  }
+
+  &__signIn {
+    margin-right: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 14px;
+    @media (min-width: 370px) {
+      font-size: 20px;
+    }
+  }
+
+  &__signup {
+    background-color: $color-yellow;
+    padding: 8px;
+    border-radius: 10px;
+    transition: 0.3s;
+    &:hover {
+      cursor: pointer;
+      padding: 14px;
+    }
+  }
+
+  &__login {
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-dark-grey;
+      color: white;
+    }
+  }
+}
+
+.dropdown {
+  color: white;
+  position: absolute;
+  top: 53px;
+  right: 20px;
+  background-color: $color-blue-main;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+
+  &--plus {
+    position: relative;
+    top: 60px;
+    right: 150px;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__profil {
+    display: flex;
+    padding: 10px 15px;
+  }
+
+  &__user-details {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+  }
+
+  &__username {
+    font-weight: bold;
+  }
+
+  &__link-container {
+    font-size: 19px;
+    padding: 10px 20px;
+    &--border {
+      border-top: 1px solid white;
+    }
+  }
+
+  &__link {
+    display: flex;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+    &:hover {
+      cursor: pointer;
+      color: $color-yellow;
+      transform: translateX(20px);
+    }
+  }
+}
+
+.logo {
+  &:hover {
+    cursor: pointer;
   }
 }
