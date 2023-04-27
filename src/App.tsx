@@ -10,15 +10,17 @@ import { Generate } from "./pages/Generate";
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateFlashcard />} />
-          <Route path="/flashcards" element={<Flashcards />} />
-          <Route path="/generate" element={<Generate />} />
-        </Routes>
-      </Router>
+      <div id="root">
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create" element={<CreateFlashcard />} />
+            <Route path="/flashcards" element={<Flashcards />} />
+            <Route path="/generate" element={<Generate />} />
+          </Routes>
+        </Router>
+      </div>
     </div>
   );
 }
