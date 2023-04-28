@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, provider } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,6 +9,22 @@ import { signInWithPopup } from "firebase/auth";
 export const Header = () => {
   const [user]: any = useAuthState(auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -22,7 +38,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className={!isScrolled ? "header" : "header header--scrolled"}>
       <div className="header__logo-container">
         <Link to="/">
           {" "}

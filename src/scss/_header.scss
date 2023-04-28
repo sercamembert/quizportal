@@ -8,6 +8,14 @@
   height: 50px;
   font-size: 21px;
   font-family: $font-Coolvetica;
+  background-color: white;
+  transition: background-color 0.2s ease-in-out;
+
+  &--scrolled {
+    background-color: rgb(255, 248, 248);
+    animation: header-animation 0.5s ease-in-out;
+  }
+
   &__logo-container {
     transform: translateY(7px);
     @media (min-width: 768px) {
