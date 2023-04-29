@@ -74,7 +74,6 @@
 
   &__scroll-container {
     position: absolute;
-
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
@@ -97,7 +96,7 @@
   }
 
   &__scroll-down {
-    z-index: 10;
+    z-index: 0;
     width: 40px;
     height: 30px;
     animation: scroll-down-arrow infinite 1s ease-in-out;
