@@ -67,7 +67,7 @@ export const Header = () => {
           FAQ
         </Link>
         <Link
-          to="/create"
+          to="/create-folder"
           className="header__link header__link--media-display header__link--background"
           onClick={() => {
             setIsDropdownOpen(false);
@@ -143,7 +143,7 @@ export const Header = () => {
                 </div>
                 <div className="dropdown__link-container">
                   <Link
-                    to="/flashcards"
+                    to="/user-folders"
                     className="dropdown__link"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >

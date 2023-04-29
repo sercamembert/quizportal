@@ -28,7 +28,7 @@ export const Flashcards = () => {
   return (
     <div>
       {cardsList?.map((card) => {
-        return user?.uid == card.userId && <Card card={card} />;
+        return user?.uid === card.userId && <Card card={card} />;
       })}
     </div>
   );

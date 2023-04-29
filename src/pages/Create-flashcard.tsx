@@ -36,14 +36,20 @@ export const CreateFlashcard = () => {
     await updateDoc(newDocRef, { cardId: newDocRef.id });
   };
   return (
-    <form onSubmit={handleSubmit(onCreatePost)} className="form">
-      <input
-        type="text"
-        placeholder="Front content"
-        {...register("frontSite")}
-      />
-      <input type="text" placeholder="Back content" {...register("backSite")} />
-      <button>Submit</button>
-    </form>
+    <div className="create">
+      <form onSubmit={handleSubmit(onCreatePost)} className="form">
+        <input
+          type="text"
+          placeholder="Front content"
+          {...register("frontSite")}
+        />
+        <input
+          type="text"
+          placeholder="Back content"
+          {...register("backSite")}
+        />
+        <button>Submit</button>
+      </form>
+    </div>
   );
 };
