@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  CollectionReference,
-} from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 interface FlashcardI {
@@ -25,13 +19,11 @@ export const FolderFlashcards = () => {
 
   useEffect(() => {
     const fetchFlashcards = async () => {
-      console.log("Fetching flashcards...");
       const q = query(collection(db, `Folders/${folderId}/Flashcards`));
       const querySnapshot = await getDocs(q);
       const flashcardsData = querySnapshot.docs.map((doc) =>
         doc.data()
       ) as FlashcardI[];
-      console.log("Flashcards data:", flashcardsData);
       setFlashcards(flashcardsData);
     };
     fetchFlashcards();

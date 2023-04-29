@@ -133,7 +133,7 @@ export const Header = () => {
                 </div>
                 <div className="dropdown__link-container dropdown__link-container--border">
                   <Link
-                    to="/create"
+                    to="/create-folder"
                     className="dropdown__link"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >

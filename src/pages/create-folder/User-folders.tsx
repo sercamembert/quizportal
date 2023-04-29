@@ -38,7 +38,6 @@ export const UserFolders = () => {
           <Link to={`/folder-flashcards/${folder.id}`}>
             <h2>{folder.title}</h2>
           </Link>
-          <p>Created by: {folder.username}</p>
         </div>
       ))}
     </div>

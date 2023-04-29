@@ -28,18 +28,13 @@ export const CreateFolder = () => {
     ),
   });
 
-  const { getValues, setValue } = useForm<CreateFormData>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      cards: [{ frontSite: "", backSite: "" }],
-    },
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    getValues,
+    setValue,
   } = useForm<CreateFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -89,6 +84,7 @@ export const CreateFolder = () => {
         <input type="text" placeholder="Title..." {...register("title")} />
         {Array.from({ length: cardsCount }).map((_, index) => (
           <div key={index} className="card">
+            <h1>{index + 1}</h1>
             <input
               type="text"
               placeholder="Front content"
