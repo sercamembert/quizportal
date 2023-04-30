@@ -21,9 +21,19 @@ export const Header = () => {
       }
     }
 
-    window.addEventListener("scroll", handleScroll);
+    function handleClickOutside(event: any) {
+      if (event.target.closest(".header__profile-image-container") === null) {
+        setIsDropdownOpen(false);
+      }
+    }
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const navigate = useNavigate();
@@ -40,10 +50,16 @@ export const Header = () => {
   return (
     <header className={!isScrolled ? "header" : "header header--scrolled"}>
       <div className="header__logo-container">
-        <Link to="/">
-          {" "}
-          <img src={logo} alt="logo" className="logo" tabIndex={0} />
-        </Link>
+        <img
+          src={logo}
+          alt="logo"
+          className="logo"
+          tabIndex={0}
+          onClick={() => {
+            navigate("/");
+            window.location.reload();
+          }}
+        />
       </div>
       <nav className="header__links">
         <Link
@@ -51,38 +67,20 @@ export const Header = () => {
           className={
             user ? "header__link" : " header__link header__link--mobile"
           }
-          onClick={() => {
-            setIsDropdownOpen(false);
-          }}
         >
           Home
         </Link>
-        <Link
-          to="/"
-          className="header__link header__link--mobile"
-          onClick={() => {
-            setIsDropdownOpen(false);
-          }}
-        >
+        <Link to="/" className="header__link header__link--mobile">
           FAQ
         </Link>
         <Link
           to="/create-folder"
           className="header__link header__link--media-display header__link--background"
-          onClick={() => {
-            setIsDropdownOpen(false);
-          }}
         >
           Create
         </Link>
         <Link to="/create">
-          <div
-            className="header__plus"
-            tabIndex={0}
-            onClick={() => {
-              isDropdownOpen && setIsDropdownOpen(false);
-            }}
-          >
+          <div className="header__plus" tabIndex={0}>
             +
           </div>
         </Link>
@@ -109,10 +107,8 @@ export const Header = () => {
               src={user?.photoURL ?? ""}
               alt="user profile"
               className="header__profile header__profile-main"
-              onClick={() => {
-                setIsDropdownOpen(!isDropdownOpen);
-              }}
               tabIndex={0}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             />
             {isDropdownOpen && (
               <nav className="dropdown">
@@ -132,21 +128,13 @@ export const Header = () => {
                   </div>
                 </div>
                 <div className="dropdown__link-container dropdown__link-container--border">
-                  <Link
-                    to="/create-folder"
-                    className="dropdown__link"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  >
+                  <Link to="/create-folder" className="dropdown__link">
                     <i className="fa-solid fa-pencil dropdown__icon"></i>
                     Create
                   </Link>
                 </div>
                 <div className="dropdown__link-container">
-                  <Link
-                    to="/user-folders"
-                    className="dropdown__link"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  >
+                  <Link to="/user-folders" className="dropdown__link">
                     <i className="fa-solid fa-bookmark dropdown__icon"></i>
                     My flashcards
                   </Link>
@@ -154,7 +142,6 @@ export const Header = () => {
                 <div className="dropdown__link-container dropdown__link-container--border">
                   <span
                     onClick={() => {
-                      setIsDropdownOpen(!isDropdownOpen);
                       signUserOut();
                     }}
                     tabIndex={0}
