@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, query, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 interface FlashcardI {
@@ -35,7 +42,11 @@ export const FolderFlashcards = () => {
     try {
       if (folderId != null) {
         const folderRef = doc(db, "Folders", folderId);
+        await updateDoc(folderRef, {
+          flashcards: [],
+        });
         await deleteDoc(folderRef);
+        navigate("/");
       }
     } catch (error) {
       console.error("Błąd podczas usuwania dokumentu: ", error);
@@ -51,14 +62,7 @@ export const FolderFlashcards = () => {
           <p>Back: {flashcard.backSite}</p>
         </div>
       ))}
-      <button
-        onClick={() => {
-          deleteFolder();
-          navigate("/");
-        }}
-      >
-        delete folder
-      </button>
+      <button onClick={deleteFolder}>delete folder</button>
     </div>
   );
 };
