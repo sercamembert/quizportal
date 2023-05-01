@@ -1,8 +1,5 @@
 .create {
-  min-height: calc(100vh - 80px);
-  width: 100vw;
-  max-width: 100%;
-  margin-top: 80px;
+  @include section-wrapper;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -12,10 +9,7 @@
   }
 
   &__heading {
-    color: $color-blue-main;
-    font-family: $font-Coolvetica;
-    letter-spacing: 3px;
-    font-weight: 300;
+    @include heading;
     font-size: 20px;
     @media (min-width: 425px) {
       font-size: 23px;
@@ -64,6 +58,9 @@
     margin: 20px;
     transition: 0.3s ease-in-out;
     border-radius: 7px;
+    &:focus {
+      transform: scale(1.1);
+    }
     &:hover {
       cursor: pointer;
       border-color: rgb(223, 91, 91);
@@ -149,4 +146,5 @@
     color: black;
     transform: translateX(-50%) scale(1.1);
   }
+  margin-bottom: 100px;
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { useNavigate } from "react-router-dom";
 interface FolderI {
   id: string;
   title: string;
@@ -14,7 +14,7 @@ interface FolderI {
 export const UserFolders = () => {
   const [user] = useAuthState(auth);
   const [folders, setFolders] = useState<FolderI[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchFolders = async () => {
       const q = query(
@@ -33,13 +33,33 @@ export const UserFolders = () => {
 
   return (
     <div>
-      {folders.map((folder) => (
-        <div key={folder.id}>
-          <Link to={`/folder-flashcards/${folder.id}`}>
-            <h2>{folder.title}</h2>
-          </Link>
+      {folders.length > 0 ? (
+        <div className="folders">
+          <h1 className="folders__heading">Created sets</h1>
+          <div className="search"></div>
+          {folders.map((folder) => (
+            <Link
+              to={`/folder-flashcards/${folder.id}`}
+              className="folders__folder"
+            >
+              <div key={folder.id} className="folders__name">
+                {folder.title} <i className="fa-solid fa-arrow-right"></i>
+              </div>
+            </Link>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div className="no-folders">
+          <h1 className="no-folders__heading">You have not created any set</h1>
+          <button
+            className="submit-btn no-folders-btn"
+            type="submit"
+            onClick={() => navigate("/create-folder")}
+          >
+            Create
+          </button>
+        </div>
+      )}
     </div>
   );
 };

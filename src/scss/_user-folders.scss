@@ -1,0 +1,82 @@
+.folders {
+  @include section-wrapper;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__heading {
+    @include heading;
+    font-size: 28px;
+    @media (min-width: 768px) {
+      font-size: 33px;
+    }
+    @media (min-width: 1024px) {
+      font-size: 40px;
+    }
+  }
+
+  &__folder {
+    width: 70%;
+    display: block;
+    text-decoration: none;
+    @media (min-width: 768px) {
+      width: 60%;
+    }
+    @media (min-width: 1024px) {
+      width: 45%;
+    }
+    background-color: $color-beige;
+    padding: 20px;
+    padding-right: 40px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: $color-dark-grey;
+    i {
+      transition: transform 0.6s ease-in-out;
+      transform: translateX(0px);
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $color-blue-main;
+      color: white;
+      i {
+        transform: translateX(20px);
+      }
+    }
+  }
+
+  &__name {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    @media (min-width: 768px) {
+      font-size: 25px;
+    }
+    font-family: $font-Work-Sans;
+  }
+}
+
+.no-folders {
+  @include section-wrapper;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+  &__heading {
+    @include heading;
+    color: $color-dark-grey;
+  }
+}
+
+.no-folders-btn {
+  margin: 0;
+  transform: none;
+  background-color: $color-yellow;
+  color: $color-dark-grey;
+  &:hover {
+    transform: scale(1.1);
+    background-color: $color-blue-main;
+    color: white;
+  }
+}

@@ -1,0 +1,13 @@
+@mixin section-wrapper {
+  min-height: calc(100vh - 80px);
+  width: 100vw;
+  max-width: 100%;
+  margin-top: 80px;
+}
+
+@mixin heading {
+  color: $color-blue-main;
+  font-family: $font-Coolvetica;
+  letter-spacing: 3px;
+  font-weight: 300;
+}
