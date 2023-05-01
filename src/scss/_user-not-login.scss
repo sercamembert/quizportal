@@ -1,0 +1,14 @@
+.not-logged {
+  font-size: 21px;
+  font-family: $font-Coolvetica;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__login {
+    @include login-btn;
+    margin-right: 10px;
+  }
+  &__signup {
+    @include signup-btn;
+  }
+}

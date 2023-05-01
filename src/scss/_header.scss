@@ -126,25 +126,11 @@
   }
 
   &__signup {
-    background-color: $color-yellow;
-    padding: 8px;
-    border-radius: 10px;
-    transition: 0.3s;
-    &:hover {
-      cursor: pointer;
-      padding: 14px;
-    }
+    @include signup-btn;
   }
 
   &__login {
-    padding: 10px;
-    border-radius: 10px;
-    transition: 0.3s;
-    &:hover {
-      cursor: pointer;
-      background-color: $color-dark-grey;
-      color: white;
-    }
+    @include login-btn;
   }
 }
 

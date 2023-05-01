@@ -11,3 +11,24 @@
   letter-spacing: 3px;
   font-weight: 300;
 }
+
+@mixin login-btn {
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s;
+  &:hover {
+    cursor: pointer;
+    background-color: $color-dark-grey;
+    color: white;
+  }
+}
+@mixin signup-btn {
+  background-color: $color-yellow;
+  padding: 8px;
+  border-radius: 10px;
+  transition: 0.3s;
+  &:hover {
+    cursor: pointer;
+    padding: 14px;
+  }
+}

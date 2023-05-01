@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { UserNotLogged } from "../../components/User-not-logged";
 interface FolderI {
   id: string;
   title: string;
@@ -50,14 +51,22 @@ export const UserFolders = () => {
         </div>
       ) : (
         <div className="no-folders">
-          <h1 className="no-folders__heading">You have not created any set</h1>
-          <button
-            className="submit-btn no-folders-btn"
-            type="submit"
-            onClick={() => navigate("/create-folder")}
-          >
-            Create
-          </button>
+          {user ? (
+            <>
+              <h1 className="no-folders__heading">
+                You have not created any set
+              </h1>
+              <button
+                className="submit-btn no-folders-btn"
+                type="submit"
+                onClick={() => navigate("/create-folder")}
+              >
+                Create
+              </button>
+            </>
+          ) : (
+            <UserNotLogged />
+          )}
         </div>
       )}
     </div>

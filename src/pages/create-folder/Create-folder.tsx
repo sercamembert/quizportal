@@ -6,6 +6,7 @@ import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserNotLogged } from "../../components/User-not-logged";
 interface CreateFormData {
   title: string;
   cards: {
@@ -89,53 +90,57 @@ export const CreateFolder = () => {
   return (
     <div className="wrapper">
       <div className="create">
-        <form onSubmit={handleSubmit(onCreatePost)}>
-          <h1 className="create__heading">Create a new study set</h1>
-          <input
-            type="text"
-            placeholder="Enter set title..."
-            {...register("title")}
-            className="create__title"
-          />
-          {Array.from({ length: cardsCount }).map((_, index) => (
-            <div key={index} className="card">
-              <div className="card__head">
-                <span className="card__number">{index + 1}</span>
-                {index > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveCard(index)}
-                    className="card__remove"
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                )}
+        {user ? (
+          <form onSubmit={handleSubmit(onCreatePost)}>
+            <h1 className="create__heading">Create a new study set</h1>
+            <input
+              type="text"
+              placeholder="Enter set title..."
+              {...register("title")}
+              className="create__title"
+            />
+            {Array.from({ length: cardsCount }).map((_, index) => (
+              <div key={index} className="card">
+                <div className="card__head">
+                  <span className="card__number">{index + 1}</span>
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveCard(index)}
+                      className="card__remove"
+                    >
+                      <i className="fa-solid fa-xmark"></i>
+                    </button>
+                  )}
+                </div>
+                <div className="card__inputs">
+                  <textarea
+                    placeholder="TERM"
+                    {...register(`cards.${index}.frontSite` as const)}
+                    className="card__input"
+                    onInput={handleTextareaInput}
+                  />
+                  <textarea
+                    placeholder="DEFINITION"
+                    {...register(`cards.${index}.backSite` as const)}
+                    className="card__input"
+                    onInput={handleTextareaInput}
+                  />
+                </div>
               </div>
-              <div className="card__inputs">
-                <textarea
-                  placeholder="TERM"
-                  {...register(`cards.${index}.frontSite` as const)}
-                  className="card__input"
-                  onInput={handleTextareaInput}
-                />
-                <textarea
-                  placeholder="DEFINITION"
-                  {...register(`cards.${index}.backSite` as const)}
-                  className="card__input"
-                  onInput={handleTextareaInput}
-                />
-              </div>
-            </div>
-          ))}
-          <button type="button" onClick={handleAddCard} className="card__add">
-            <span className="card__add-text">
-              Add Card <i className="fa-solid fa-plus"></i>
-            </span>
-          </button>
-          <button className="submit-btn" type="submit">
-            Create
-          </button>
-        </form>
+            ))}
+            <button type="button" onClick={handleAddCard} className="card__add">
+              <span className="card__add-text">
+                Add Card <i className="fa-solid fa-plus"></i>
+              </span>
+            </button>
+            <button className="submit-btn" type="submit">
+              Create
+            </button>
+          </form>
+        ) : (
+          <UserNotLogged />
+        )}
       </div>
     </div>
   );
