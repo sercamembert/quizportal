@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
@@ -42,9 +43,18 @@ export const FolderFlashcards = () => {
     try {
       if (folderId != null) {
         const folderRef = doc(db, "Folders", folderId);
-        await updateDoc(folderRef, {
-          flashcards: [],
+        const flashcardsRef = collection(folderRef, "Flashcards");
+        const querySnapshot = await getDocs(flashcardsRef);
+
+        const batch = writeBatch(db);
+        querySnapshot.forEach((doc) => {
+          batch.delete(doc.ref);
         });
+        await batch.commit();
+        await updateDoc(folderRef, {
+          Flashcards: [],
+        });
+
         await deleteDoc(folderRef);
         navigate("/");
       }
