@@ -136,7 +136,7 @@ export const Header = () => {
                 <div className="dropdown__link-container">
                   <Link to="/user-folders" className="dropdown__link">
                     <i className="fa-solid fa-bookmark dropdown__icon"></i>
-                    My flashcards
+                    My sets
                   </Link>
                 </div>
                 <div className="dropdown__link-container dropdown__link-container--border">

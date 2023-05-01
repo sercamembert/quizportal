@@ -16,8 +16,9 @@ interface CreateFormData {
 
 export const CreateFolder = () => {
   const navigate = useNavigate();
+  const [textareaHeight, setTextareaHeight] = useState("auto");
   const [user] = useAuthState(auth);
-  const [cardsCount, setCardsCount] = useState(1);
+  const [cardsCount, setCardsCount] = useState(2);
   const schema = yup.object().shape({
     title: yup.string().required("You must add title"),
     cards: yup.array().of(
@@ -78,35 +79,64 @@ export const CreateFolder = () => {
     );
   };
 
+  const handleTextareaInput = (event: any) => {
+    const element = event.target;
+    element.style.height = "30px";
+    element.style.height = `${element.scrollHeight}px`;
+    setTextareaHeight(`${element.scrollHeight}px`);
+  };
+
   return (
-    <div className="create">
-      <form onSubmit={handleSubmit(onCreatePost)} className="form">
-        <input type="text" placeholder="Title..." {...register("title")} />
-        {Array.from({ length: cardsCount }).map((_, index) => (
-          <div key={index} className="card">
-            <h1>{index + 1}</h1>
-            <input
-              type="text"
-              placeholder="Front content"
-              {...register(`cards.${index}.frontSite` as const)}
-            />
-            <input
-              type="text"
-              placeholder="Back content"
-              {...register(`cards.${index}.backSite` as const)}
-            />
-            {index > 0 && (
-              <button type="button" onClick={() => handleRemoveCard(index)}>
-                Remove
-              </button>
-            )}
-          </div>
-        ))}
-        <button type="button" onClick={handleAddCard}>
-          Add Card
-        </button>
-        <button>Submit</button>
-      </form>
+    <div className="wrapper">
+      <div className="create">
+        <form onSubmit={handleSubmit(onCreatePost)}>
+          <h1 className="create__heading">Create a new study set</h1>
+          <input
+            type="text"
+            placeholder="Enter set title..."
+            {...register("title")}
+            className="create__title"
+          />
+          {Array.from({ length: cardsCount }).map((_, index) => (
+            <div key={index} className="card">
+              <div className="card__head">
+                <span className="card__number">{index + 1}</span>
+                {index > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveCard(index)}
+                    className="card__remove"
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                )}
+              </div>
+              <div className="card__inputs">
+                <textarea
+                  placeholder="TERM"
+                  {...register(`cards.${index}.frontSite` as const)}
+                  className="card__input"
+                  onInput={handleTextareaInput}
+                />
+                <textarea
+                  placeholder="DEFINITION"
+                  {...register(`cards.${index}.backSite` as const)}
+                  className="card__input"
+                  onInput={handleTextareaInput}
+                />
+              </div>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddCard} className="card__add">
+            <span className="card__add-text">
+              Add Card <i className="fa-solid fa-plus"></i>
+            </span>
+          </button>
+          <button className="submit-btn" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
