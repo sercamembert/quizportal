@@ -8,12 +8,21 @@ import {
   doc,
   updateDoc,
   writeBatch,
+  getDoc,
 } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 interface FlashcardI {
   frontSite: string;
   backSite: string;
+}
+
+interface FolderI {
+  title: string;
+  username: string;
+  userId: string;
 }
 
 interface FolderFlashcardsParams {
@@ -24,7 +33,8 @@ interface FolderFlashcardsParams {
 export const FolderFlashcards = () => {
   const { folderId } = useParams<FolderFlashcardsParams>();
   const [flashcards, setFlashcards] = useState<FlashcardI[]>([]);
-
+  const [folder, setFolder] = useState<FolderI | null>(null);
+  const [user]: any = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,11 +47,22 @@ export const FolderFlashcards = () => {
       setFlashcards(flashcardsData);
     };
     fetchFlashcards();
+
+    const fetchFolder = async () => {
+      if (folderId != null) {
+        const folderRef = doc(db, "Folders", folderId);
+        const folderSnapshot = await getDoc(folderRef);
+        const folderData = folderSnapshot.data() as FolderI;
+        setFolder(folderData);
+      }
+    };
+    fetchFolder();
   }, [folderId]);
 
   const deleteFolder = async () => {
     try {
-      if (folderId != null) {
+      console.log(folder?.userId);
+      if (folderId != null && folder?.userId === user?.uid) {
         const folderRef = doc(db, "Folders", folderId);
         const flashcardsRef = collection(folderRef, "Flashcards");
         const querySnapshot = await getDocs(flashcardsRef);
@@ -72,7 +93,9 @@ export const FolderFlashcards = () => {
           <p>Back: {flashcard.backSite}</p>
         </div>
       ))}
-      <button onClick={deleteFolder}>delete folder</button>
+      {folder?.userId === user?.uid && (
+        <button onClick={deleteFolder}>delete folder</button>
+      )}
     </div>
   );
 };
