@@ -184,10 +184,12 @@ export const FolderFlashcards = () => {
               <div className="flashcards__actions">
                 {isActionsShowed && (
                   <>
-                    <div className="flashcards__action">
-                      <i className="fa-regular fa-pen-to-square"></i>
-                      <span>Edit</span>
-                    </div>
+                    {folder?.userId === user?.uid && (
+                      <div className="flashcards__action">
+                        <i className="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                      </div>
+                    )}
                     <div
                       className="flashcards__action"
                       onClick={handleShareClick}
@@ -230,10 +232,8 @@ export const FolderFlashcards = () => {
                 {flashcards.map((term) => {
                   return (
                     <div className="flashcards__terms-item">
-                      <span className="flashcards__term">{term.frontSite}</span>
-                      <span className="flashcards__meaning">
-                        {term.backSite}
-                      </span>
+                      <p className="flashcards__term">{term.frontSite}</p>
+                      <p className="flashcards__meaning">{term.backSite}</p>
                     </div>
                   );
                 })}

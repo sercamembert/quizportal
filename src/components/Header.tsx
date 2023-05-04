@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { auth, provider } from "../config/firebase";
+import { auth, signInWithGoogle } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
-import { signInWithPopup } from "firebase/auth";
+
 export const Header = () => {
   const [user]: any = useAuthState(auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -43,10 +43,6 @@ export const Header = () => {
     navigate("/");
   };
 
-  const signInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-  };
-
   return (
     <header className={!isScrolled ? "header" : "header header--scrolled"}>
       <div className="header__logo-container">
@@ -70,16 +66,14 @@ export const Header = () => {
         >
           Home
         </Link>
-        <Link to="/" className="header__link header__link--mobile">
-          FAQ
-        </Link>
+
         <Link
           to="/create-folder"
           className="header__link header__link--media-display header__link--background"
         >
           Create
         </Link>
-        <Link to="/create">
+        <Link to="/create-folder">
           <div className="header__plus" tabIndex={0}>
             +
           </div>

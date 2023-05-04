@@ -37,10 +37,11 @@
     font-family: $font-Work-Sans;
     border-radius: 10px;
     width: 100%;
-    height: 430px;
+    min-height: 430px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.5s;
+
     &:hover {
       cursor: pointer;
     }
@@ -155,17 +156,17 @@
     justify-content: space-between;
     align-items: center;
     font-family: $font-Work-Sans;
+    margin-bottom: 20px;
   }
 
   &__terms-title {
     font-size: 25px;
     color: $color-dark-grey;
-    margin-bottom: 20px;
   }
 
   &__terms-show-hide {
-    color: $color-grey;
     font-size: 20px;
+    color: $color-grey;
     &:hover {
       cursor: pointer;
     }
@@ -190,32 +191,39 @@
     background-color: $color-beige;
     border-radius: 10px;
     border: 1px solid lightgrey;
-    span {
-      display: flex;
-      flex-wrap: wrap;
-    }
   }
 
   &__term {
     width: 35%;
+    word-wrap: break-word;
   }
   &__meaning {
     border-left: 1px solid $color-dark-grey;
     padding-left: 20px;
+    word-wrap: break-word;
+    width: 50%;
   }
 }
 
 .front,
 .back {
   position: absolute;
-  width: 100%;
   height: 100%;
+  width: 100%;
   backface-visibility: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
+  p {
+    text-align: center;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .front {
@@ -238,6 +246,7 @@
   justify-content: center;
   align-items: center;
   font-family: $font-Work-Sans;
+  z-index: 1000;
 }
 
 .share-modal__content {

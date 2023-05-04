@@ -1,5 +1,8 @@
 //main imports
 import React, { useRef } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase";
+import { signInWithGoogle } from "../config/firebase";
 
 //home img
 import arrowImg from "../img/home-blocks/arrow.png";
@@ -16,7 +19,7 @@ import cardImg4 from "../img/faq-cards/4.png";
 
 export const Home = () => {
   const faqRef = useRef<HTMLDivElement>(null);
-
+  const [user]: any = useAuthState(auth);
   const handleScrollToFAQ = () => {
     if (faqRef.current !== null) {
       faqRef.current.scrollIntoView({ behavior: "smooth" });
@@ -41,12 +44,17 @@ export const Home = () => {
             tests and games to achive their goals in school, univeristy and
             beyound.
           </span>
-          <button className="home__btn">Get Started</button>
+          <button
+            className="home__btn"
+            onClick={() => {
+              !user && signInWithGoogle();
+            }}
+          >
+            Get Started
+          </button>
           <div className="home__scroll-container">
             <span className="home__scroll-text">
-              90% of students approve that thanks to Quizportal{" "}
-              {window.innerWidth >= 1024 && <br />}
-              they started getting better grades
+              90% of students who use Quizportal report receiving higher marks
             </span>
             <img
               src={downArrowImg}

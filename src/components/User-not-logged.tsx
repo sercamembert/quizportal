@@ -1,10 +1,7 @@
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { auth, provider } from "../config/firebase";
-
+import { signInWithGoogle } from "../config/firebase";
 export const UserNotLogged = () => {
-  const signInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-  };
   return (
     <>
       <div className="not-logged">
