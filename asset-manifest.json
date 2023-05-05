@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/sercamembert.github.io/quizportal/static/css/main.15cbb44e.css",
-    "main.js": "/sercamembert.github.io/quizportal/static/js/main.a9e3c91e.js",
-    "static/media/notebook.png": "/sercamembert.github.io/quizportal/static/media/notebook.5f7d0e9299e8e8466d7e.png",
-    "static/media/arrow.png": "/sercamembert.github.io/quizportal/static/media/arrow.1b5e93804c866a359a6d.png",
-    "static/media/wave.png": "/sercamembert.github.io/quizportal/static/media/wave.e674ed90ce848f4b6203.png",
-    "index.html": "/sercamembert.github.io/quizportal/index.html",
-    "main.15cbb44e.css.map": "/sercamembert.github.io/quizportal/static/css/main.15cbb44e.css.map",
-    "main.a9e3c91e.js.map": "/sercamembert.github.io/quizportal/static/js/main.a9e3c91e.js.map"
+    "main.css": "/static/css/main.d018c7e1.css",
+    "main.js": "/static/js/main.aabf40f4.js",
+    "static/media/notebook.png": "/static/media/notebook.2fe21d2f3487cfcd669f.png",
+    "static/media/arrow.png": "/static/media/arrow.82868b72e951be50e50e.png",
+    "index.html": "/index.html",
+    "main.d018c7e1.css.map": "/static/css/main.d018c7e1.css.map",
+    "main.aabf40f4.js.map": "/static/js/main.aabf40f4.js.map"
   },
   "entrypoints": [
-    "static/css/main.15cbb44e.css",
-    "static/js/main.a9e3c91e.js"
+    "static/css/main.d018c7e1.css",
+    "static/js/main.aabf40f4.js"
   ]
 }
