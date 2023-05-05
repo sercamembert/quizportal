@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   collection,
   query,
@@ -141,6 +141,7 @@ export const FolderFlashcards = () => {
   const handleShareClick = () => {
     setIsShareModalOpen(!isShareModalOpen);
   };
+
   const handleCopyClick = () => {
     navigator.clipboard.writeText(
       `${window.location.origin}/folder-flashcards/${folderId}`
@@ -185,10 +186,16 @@ export const FolderFlashcards = () => {
                 {isActionsShowed && (
                   <>
                     {folder?.userId === user?.uid && (
-                      <div className="flashcards__action">
+                      <Link
+                        to={`/edit-flashcards/${folderId}?cards=${encodeURIComponent(
+                          JSON.stringify(flashcards)
+                        )}`}
+                        className="flashcards__action"
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
                         <i className="fa-regular fa-pen-to-square"></i>
                         <span>Edit</span>
-                      </div>
+                      </Link>
                     )}
                     <div
                       className="flashcards__action"

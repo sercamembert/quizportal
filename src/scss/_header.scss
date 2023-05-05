@@ -170,7 +170,6 @@
 
   &__link {
     display: flex;
-    gap: 20px;
     text-decoration: none;
     color: inherit;
     transition: 0.3s;
@@ -178,6 +177,12 @@
       cursor: pointer;
       color: $color-yellow;
       transform: translateX(20px);
+    }
+    span {
+      margin-left: 20px;
+    }
+    i {
+      width: 20px;
     }
   }
 }

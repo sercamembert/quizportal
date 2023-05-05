@@ -6,7 +6,7 @@ import { Header } from "./components/Header";
 import { CreateFolder } from "./pages/create-folder/Create-folder";
 import { UserFolders } from "./pages/create-folder/User-folders";
 import { FolderFlashcards } from "./pages/create-folder/Folder-flashcards";
-
+import { EditFolder } from "./pages/create-folder/Edit-folder";
 function App() {
   return (
     <div className="App">
@@ -21,6 +21,7 @@ function App() {
               path="/folder-flashcards/:folderId"
               element={<FolderFlashcards />}
             />
+            <Route path="/edit-flashcards/:folderId" element={<EditFolder />} />
           </Routes>
         </Router>
       </div>

@@ -124,13 +124,13 @@ export const Header = () => {
                 <div className="dropdown__link-container dropdown__link-container--border">
                   <Link to="/create-folder" className="dropdown__link">
                     <i className="fa-solid fa-pencil dropdown__icon"></i>
-                    Create
+                    <span>Create</span>
                   </Link>
                 </div>
                 <div className="dropdown__link-container">
                   <Link to="/user-folders" className="dropdown__link">
                     <i className="fa-solid fa-bookmark dropdown__icon"></i>
-                    My sets
+                    <span>My sets</span>
                   </Link>
                 </div>
                 <div className="dropdown__link-container dropdown__link-container--border">
@@ -142,7 +142,7 @@ export const Header = () => {
                     className="dropdown__link"
                   >
                     <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                    Log out
+                    <span>Log out</span>
                   </span>
                 </div>
               </nav>

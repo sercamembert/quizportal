@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { signInWithGoogle } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 //home img
 import arrowImg from "../img/home-blocks/arrow.png";
@@ -18,6 +19,7 @@ import cardImg3 from "../img/faq-cards/3.png";
 import cardImg4 from "../img/faq-cards/4.png";
 
 export const Home = () => {
+  const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement>(null);
   const [user]: any = useAuthState(auth);
   const handleScrollToFAQ = () => {
@@ -47,7 +49,7 @@ export const Home = () => {
           <button
             className="home__btn"
             onClick={() => {
-              !user && signInWithGoogle();
+              !user ? signInWithGoogle() : navigate("/create-folder");
             }}
           >
             Get Started
