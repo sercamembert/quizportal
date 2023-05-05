@@ -44,7 +44,8 @@ export const UserFolders = () => {
               className="folders__folder"
             >
               <div key={folder.id} className="folders__name">
-                {folder.title} <i className="fa-solid fa-arrow-right"></i>
+                <span>{folder.title}</span>
+                <i className="fa-solid fa-arrow-right"></i>
               </div>
             </Link>
           ))}

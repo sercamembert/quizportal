@@ -50,10 +50,17 @@
     font-size: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     @media (min-width: 768px) {
       font-size: 25px;
     }
     font-family: $font-Work-Sans;
+    width: 100%;
+    height: auto;
+    span {
+      word-wrap: break-word;
+      width: 90%;
+    }
   }
 }
 
