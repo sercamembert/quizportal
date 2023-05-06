@@ -122,13 +122,21 @@ export const Header = () => {
                   </div>
                 </div>
                 <div className="dropdown__link-container dropdown__link-container--border">
-                  <Link to="/create-folder" className="dropdown__link">
+                  <Link
+                    to="/create-folder"
+                    className="dropdown__link"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
                     <i className="fa-solid fa-pencil dropdown__icon"></i>
                     <span>Create</span>
                   </Link>
                 </div>
                 <div className="dropdown__link-container">
-                  <Link to="/user-folders" className="dropdown__link">
+                  <Link
+                    to="/user-folders"
+                    className="dropdown__link"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
                     <i className="fa-solid fa-bookmark dropdown__icon"></i>
                     <span>My sets</span>
                   </Link>

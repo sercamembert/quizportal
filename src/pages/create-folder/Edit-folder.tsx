@@ -3,29 +3,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
-  updateDoc,
   doc,
   collection,
-  addDoc,
   getDocs,
   getDoc,
   writeBatch,
-  DocumentData,
-  DocumentReference,
 } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserNotLogged } from "../../components/User-not-logged";
-
-interface EditFormData {
-  title: string;
-  cards: {
-    frontSite: string;
-    backSite: string;
-  }[];
-}
+import { handleAddCard, handleTextareaInput } from "./Folder-form-methods";
+import { schema, CreateFormData } from "./Create-folder";
 
 interface EditFlashcardsParams {
   folderId: string;
@@ -40,15 +29,6 @@ export const EditFolder = () => {
   const [cardsCount, setCardsCount] = useState(2);
   const { folderId, cards } = useParams<EditFlashcardsParams>();
   const [folderUser, setFolderUser] = useState();
-  const schema = yup.object().shape({
-    title: yup.string().required("You must add title"),
-    cards: yup.array().of(
-      yup.object().shape({
-        frontSite: yup.string().required("You must add front page"),
-        backSite: yup.string().required("You must add back page"),
-      })
-    ),
-  });
 
   const {
     register,
@@ -57,7 +37,7 @@ export const EditFolder = () => {
     control,
     getValues,
     setValue,
-  } = useForm<EditFormData>({
+  } = useForm<CreateFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
       cards: [{ frontSite: "", backSite: "" }],
@@ -88,7 +68,7 @@ export const EditFolder = () => {
     fetchCards();
   }, [folderId, setValue]);
 
-  const onEditPost = async (data: EditFormData) => {
+  const onEditPost = async (data: CreateFormData) => {
     if (folderId != null && folderId !== undefined) {
       const { title, cards } = data;
       const cardsRef = collection(db, "Folders", folderId, "Flashcards");
@@ -146,10 +126,6 @@ export const EditFolder = () => {
     }
   };
 
-  const handleAddCard = () => {
-    setCardsCount((prevCount) => prevCount + 1);
-  };
-
   const handleRemoveCard = (index: number) => {
     setCardsCount((prevCount) => prevCount - 1);
     const cards = getValues("cards");
@@ -159,12 +135,6 @@ export const EditFolder = () => {
     );
   };
 
-  const handleTextareaInput = (event: any) => {
-    const element = event.target;
-    element.style.height = "30px";
-    element.style.height = `${element.scrollHeight}px`;
-    setTextareaHeight(`${element.scrollHeight}px`);
-  };
   return (
     <div className="wrapper">
       <div className="create">
@@ -196,18 +166,26 @@ export const EditFolder = () => {
                     placeholder="TERM"
                     {...register(`cards.${index}.frontSite` as const)}
                     className="card__input"
-                    onInput={handleTextareaInput}
+                    onInput={(event) =>
+                      handleTextareaInput(event, setTextareaHeight)
+                    }
                   />
                   <textarea
                     placeholder="DEFINITION"
                     {...register(`cards.${index}.backSite` as const)}
                     className="card__input"
-                    onInput={handleTextareaInput}
+                    onInput={(event) =>
+                      handleTextareaInput(event, setTextareaHeight)
+                    }
                   />
                 </div>
               </div>
             ))}
-            <button type="button" onClick={handleAddCard} className="card__add">
+            <button
+              type="button"
+              onClick={() => handleAddCard(setCardsCount)}
+              className="card__add"
+            >
               <span className="card__add-text">
                 Add Card <i className="fa-solid fa-plus"></i>
               </span>
@@ -223,6 +201,3 @@ export const EditFolder = () => {
     </div>
   );
 };
-function useDocumentData(folderRef: DocumentReference<DocumentData>): [any] {
-  throw new Error("Function not implemented.");
-}

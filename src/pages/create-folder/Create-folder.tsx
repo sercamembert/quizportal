@@ -7,7 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
-interface CreateFormData {
+import { handleAddCard, handleTextareaInput } from "./Folder-form-methods";
+export interface CreateFormData {
   title: string;
   cards: {
     frontSite: string;
@@ -15,20 +16,21 @@ interface CreateFormData {
   }[];
 }
 
+export const schema = yup.object().shape({
+  title: yup.string().required("You must add title"),
+  cards: yup.array().of(
+    yup.object().shape({
+      frontSite: yup.string().required("You must add front page"),
+      backSite: yup.string().required("You must add back page"),
+    })
+  ),
+});
+
 export const CreateFolder = () => {
   const navigate = useNavigate();
   const [textareaHeight, setTextareaHeight] = useState("auto");
   const [user] = useAuthState(auth);
   const [cardsCount, setCardsCount] = useState(2);
-  const schema = yup.object().shape({
-    title: yup.string().required("You must add title"),
-    cards: yup.array().of(
-      yup.object().shape({
-        frontSite: yup.string().required("You must add front page"),
-        backSite: yup.string().required("You must add back page"),
-      })
-    ),
-  });
 
   const {
     register,
@@ -67,10 +69,6 @@ export const CreateFolder = () => {
     navigate(`/folder-flashcards/${folderId}`);
   };
 
-  const handleAddCard = () => {
-    setCardsCount((prevCount) => prevCount + 1);
-  };
-
   const handleRemoveCard = (index: number) => {
     setCardsCount((prevCount) => prevCount - 1);
     const cards = getValues("cards");
@@ -78,13 +76,6 @@ export const CreateFolder = () => {
       "cards",
       cards.filter((_: any, i: number) => i !== index)
     );
-  };
-
-  const handleTextareaInput = (event: any) => {
-    const element = event.target;
-    element.style.height = "30px";
-    element.style.height = `${element.scrollHeight}px`;
-    setTextareaHeight(`${element.scrollHeight}px`);
   };
 
   return (
@@ -118,18 +109,26 @@ export const CreateFolder = () => {
                     placeholder="TERM"
                     {...register(`cards.${index}.frontSite` as const)}
                     className="card__input"
-                    onInput={handleTextareaInput}
+                    onInput={(event) =>
+                      handleTextareaInput(event, setTextareaHeight)
+                    }
                   />
                   <textarea
                     placeholder="DEFINITION"
                     {...register(`cards.${index}.backSite` as const)}
                     className="card__input"
-                    onInput={handleTextareaInput}
+                    onInput={(event) =>
+                      handleTextareaInput(event, setTextareaHeight)
+                    }
                   />
                 </div>
               </div>
             ))}
-            <button type="button" onClick={handleAddCard} className="card__add">
+            <button
+              type="button"
+              onClick={() => handleAddCard(setCardsCount)}
+              className="card__add"
+            >
               <span className="card__add-text">
                 Add Card <i className="fa-solid fa-plus"></i>
               </span>
