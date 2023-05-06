@@ -12,12 +12,6 @@ import circleImg from "../img/home-blocks/circle.png";
 import notebookImg from "../img/home-blocks/notebook.png";
 import downArrowImg from "../img/home-blocks/down-arrow.png";
 
-//faq img
-import cardImg1 from "../img/faq-cards/1.png";
-import cardImg2 from "../img/faq-cards/2.png";
-import cardImg3 from "../img/faq-cards/3.png";
-import cardImg4 from "../img/faq-cards/4.png";
-
 export const Home = () => {
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement>(null);
