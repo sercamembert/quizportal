@@ -7,9 +7,8 @@
 
 @mixin heading {
   color: $color-blue-main;
-  font-family: $font-Coolvetica;
-  letter-spacing: 3px;
-  font-weight: 300;
+  font-family: $font-Work-Sans;
+  font-weight: bold;
 }
 
 @mixin login-btn {

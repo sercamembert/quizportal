@@ -62,53 +62,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      <section ref={faqRef} className="faq" id="faq">
-        <div
-          className="faq-card"
-          style={{
-            backgroundImage:
-              "url('https://png.pngtree.com/thumb_back/fh260/background/20190223/ourmid/pngtree-fresh-chalkboard-stationery-ad-background-backgroundblackboardhand-paintedbooktextbookstationeryfreshknow-how-image_75849.jpg')",
-          }}
-        >
-          <span className="faq-card__text">
-            With Quizportal you can quickly and effectively acquire new
-            knowledge
-          </span>
-        </div>
-        <div
-          className="faq-card"
-          style={{
-            backgroundImage:
-              "url('https://img.freepik.com/darmowe-zdjecie/uklad-pustych-karteczek-samoprzylepnych_23-2148857217.jpg')",
-          }}
-        >
-          <span className="faq-card__text">
-            Memorise anything with free digital flashcards
-          </span>
-        </div>
-        <div
-          className="faq-card"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60')",
-          }}
-        >
-          <span className="faq-card__text">
-            Ace your exams with Learn and Test
-          </span>
-        </div>
-        <div
-          className="faq-card"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')",
-          }}
-        >
-          <span className="faq-card__text">
-            Quizportal is the perfect study tool for a test
-          </span>
-        </div>
-      </section>
+      <section ref={faqRef} className="faq" id="faq"></section>
     </div>
   );
 };

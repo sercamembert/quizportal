@@ -200,6 +200,7 @@ export const FolderFlashcards = () => {
                     <div
                       className="flashcards__action"
                       onClick={handleShareClick}
+                      tabIndex={0}
                     >
                       <i className="fa-regular fa-share-from-square"></i>
                       <span>Share</span>
@@ -208,6 +209,7 @@ export const FolderFlashcards = () => {
                       <div
                         className="flashcards__action"
                         onClick={deleteFolder}
+                        tabIndex={0}
                       >
                         <i className="fa-regular fa-trash-can"></i>
                         <span className="flashcards__action-text">Delete</span>
@@ -230,6 +232,7 @@ export const FolderFlashcards = () => {
               <span
                 className="flashcards__terms-show-hide"
                 onClick={() => serIsTermsShow(!isTermsShow)}
+                tabIndex={0}
               >
                 {isTermsShow ? "Hide" : "Show"}
               </span>

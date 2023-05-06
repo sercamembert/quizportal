@@ -28,9 +28,8 @@
     span {
       z-index: 100;
       text-align: center;
-      font-family: $font-Coolvetica;
+      font-family: $font-Work-Sans;
       font-weight: bold;
-      letter-spacing: 2px;
       font-size: 30px;
       @media (min-width: 500px) {
         font-size: 35px;
@@ -42,7 +41,7 @@
         font-size: 60px;
       }
       @media (min-width: 1900px) {
-        font-size: 80px;
+        font-size: 75px;
       }
     }
   }
