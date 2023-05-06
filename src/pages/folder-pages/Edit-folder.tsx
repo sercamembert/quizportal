@@ -13,7 +13,7 @@ import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { handleAddCard, handleTextareaInput } from "./Folder-form-methods";
+import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
 import { schema, CreateFormData } from "./Create-folder";
 
 interface EditFlashcardsParams {

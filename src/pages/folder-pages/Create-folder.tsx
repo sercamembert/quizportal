@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
-import { handleAddCard, handleTextareaInput } from "./Folder-form-methods";
+import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
 export interface CreateFormData {
   title: string;
   cards: {
