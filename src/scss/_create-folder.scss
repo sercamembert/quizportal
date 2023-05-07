@@ -128,24 +128,10 @@
 }
 
 .submit-btn {
-  background-color: $color-blue-main;
+  @include create-btn;
   margin-top: 40px;
-  font-family: $font-Work-Sans;
-  font-size: 23px;
-  font-weight: bold;
-  border: none;
-  color: white;
   padding: 13px 20px;
-  letter-spacing: 2px;
-  border-radius: 7px;
   margin-left: 50%;
   transform: translateX(-50%);
-  transition: 0.3s ease-in-out;
-  &:hover {
-    cursor: pointer;
-    background-color: $color-yellow;
-    color: black;
-    transform: translateX(-50%) scale(1.1);
-  }
   margin-bottom: 100px;
 }

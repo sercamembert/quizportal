@@ -1,0 +1,46 @@
+.footer {
+  width: 100vw;
+  height: 200px;
+  background-color: $color-beige;
+  display: flex;
+  justify-content: center;
+  font-family: $font-Work-Sans;
+  font-weight: bold;
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: 1024px) {
+    }
+  }
+
+  &__img-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    span {
+      @include footer-link;
+    }
+  }
+  &__socials {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 23px;
+    i {
+      @include footer-link;
+    }
+  }
+
+  &__copy {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px;
+  }
+}
