@@ -1,5 +1,5 @@
 export const handleAddCard = (element: any) => {
-  element((prevCount: number) => prevCount + 1);
+  element((prevCount: number) => (prevCount <= 49 ? prevCount + 1 : 50));
 };
 
 export const handleTextareaInput = (event: any, hookVar: any) => {

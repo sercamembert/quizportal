@@ -1,13 +1,21 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addDoc, collection, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
 import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
+
 export interface CreateFormData {
   title: string;
   cards: {
@@ -31,7 +39,7 @@ export const CreateFolder = () => {
   const [textareaHeight, setTextareaHeight] = useState("auto");
   const [user] = useAuthState(auth);
   const [cardsCount, setCardsCount] = useState(2);
-
+  const [foldersCount, setFoldersCount] = useState(0);
   const {
     register,
     handleSubmit,
@@ -46,27 +54,51 @@ export const CreateFolder = () => {
     },
   });
 
+  useEffect(() => {
+    const fetchFoldersCount = async () => {
+      if (user) {
+        const q = query(
+          collection(db, "Folders"),
+          where("userId", "==", user.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        setFoldersCount(querySnapshot.size);
+      }
+    };
+
+    fetchFoldersCount();
+  }, [user]);
+
   const onCreatePost = async (data: CreateFormData) => {
-    const folderRef = await addDoc(collection(db, "Folders"), {
-      username: user?.displayName,
-      userId: user?.uid,
-      title: data.title,
-    });
-    const folderId = folderRef.id;
-    const cardsRef = collection(db, "Folders", folderId, "Flashcards");
+    if (foldersCount <= 20) {
+      const folderRef = await addDoc(collection(db, "Folders"), {
+        username: user?.displayName,
+        userId: user?.uid,
+        title: data.title,
+      });
+      const folderId = folderRef.id;
+      const cardsRef = collection(db, "Folders", folderId, "Flashcards");
 
-    const cards = data.cards.map((card) => ({
-      frontSite: card.frontSite,
-      backSite: card.backSite,
-      username: user?.displayName,
-      userId: user?.uid,
-    }));
+      const cards = data.cards.map((card) => ({
+        frontSite: card.frontSite,
+        backSite: card.backSite,
+        username: user?.displayName,
+        userId: user?.uid,
+      }));
 
-    cards.forEach(async (card) => {
-      const cardRef = await addDoc(cardsRef, card);
-      await updateDoc(cardRef, { cardId: cardRef.id });
-    });
-    navigate(`/folder-flashcards/${folderId}`);
+      cards.forEach(async (card) => {
+        const cardRef = await addDoc(cardsRef, card);
+        await updateDoc(cardRef, { cardId: cardRef.id });
+      });
+
+      navigate(`/folder-flashcards/${folderId}`);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } else {
+      alert("You reached limit of sets!");
+    }
   };
 
   const handleRemoveCard = (index: number) => {

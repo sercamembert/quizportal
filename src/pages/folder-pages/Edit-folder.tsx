@@ -123,6 +123,9 @@ export const EditFolder = () => {
       batch.update(doc(db, "Folders", folderId), { title });
       await batch.commit();
       navigate(`/folder-flashcards/${folderId}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     }
   };
 

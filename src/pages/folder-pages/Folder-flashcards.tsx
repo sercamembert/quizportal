@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   collection,
@@ -84,7 +84,6 @@ export const FolderFlashcards = () => {
 
   const deleteFolder = async () => {
     try {
-      console.log(folder?.userId);
       if (folderId != null && folder?.userId === user?.uid) {
         const folderRef = doc(db, "Folders", folderId);
         const flashcardsRef = collection(folderRef, "Flashcards");
@@ -100,7 +99,7 @@ export const FolderFlashcards = () => {
         });
 
         await deleteDoc(folderRef);
-        navigate("/");
+        navigate("/user-folders");
       }
     } catch (error) {
       console.error("Błąd podczas usuwania dokumentu: ", error);
