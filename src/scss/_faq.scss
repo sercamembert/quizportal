@@ -101,10 +101,10 @@
     width: 80%;
     min-height: 430px;
     @media (min-width: 700px) {
-      width: 70%;
+      width: 60%;
     }
     @media (min-width: 1024px) {
-      width: 60%;
+      width: 50%;
     }
     @media (min-width: 1400px) {
       width: 40%;
@@ -114,7 +114,6 @@
   &__teacher-wrapper {
     width: 100vw;
     margin-bottom: 100px;
-    padding-bottom: 50px;
     background-color: $color-blue-main;
     display: flex;
     flex-direction: column;
@@ -147,4 +146,5 @@
 
 .teacher-btn {
   @include home-btn;
+  margin-bottom: 20px;
 }

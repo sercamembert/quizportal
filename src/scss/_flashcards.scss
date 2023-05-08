@@ -41,7 +41,7 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.5s;
-
+    box-shadow: 1px 1px 15px black;
     &:hover {
       cursor: pointer;
     }
@@ -246,7 +246,7 @@
   justify-content: center;
   align-items: center;
   font-family: $font-Work-Sans;
-  z-index: 1000;
+  z-index: 10000000;
 }
 
 .share-modal__content {

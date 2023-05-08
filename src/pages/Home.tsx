@@ -43,9 +43,9 @@ export const Home = () => {
             </span>
           </div>
           <span className="home__text">
-            Join more than 60M+ worldwide using Quizportal flashcards, practice
-            tests and games to achive their goals in school, univeristy and
-            beyound.
+            Join our global community and achieve academic success with
+            QuizPortal's flashcards, practice tests, and games. Start learning
+            smarter today!
           </span>
           <button
             className="home__btn"
@@ -102,7 +102,7 @@ export const Home = () => {
               <div
                 className={`flashcards__card ${isFlipped ? "flipped" : ""}`}
                 onClick={() => setIsFlipped(!isFlipped)}
-                style={{ minHeight: "350px" }}
+                style={{ minHeight: "300px" }}
               >
                 <div className="front">
                   <p>Quizportal</p>

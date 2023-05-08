@@ -120,9 +120,13 @@
     display: flex;
     gap: 5px;
     align-items: center;
-    font-size: 14px;
+    font-size: 15px;
     @media (min-width: 370px) {
+      transform: translateY(5px);
+    }
+    @media (min-width: 400px) {
       font-size: 1em;
+      transform: none;
     }
   }
 
@@ -180,7 +184,7 @@
       transform: translateX(20px);
     }
     span {
-      margin-left: 20px;
+      margin-left: 12px;
     }
     i {
       width: 20px;
