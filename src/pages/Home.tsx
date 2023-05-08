@@ -4,6 +4,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { signInWithGoogle } from "../config/firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { Footer } from "../components/Footer";
+import { Advantages } from "../components/Advantages";
 
 //home img
 import arrowImg from "../img/home-blocks/arrow.png";
@@ -16,7 +18,6 @@ import downArrowImg from "../img/home-blocks/down-arrow.png";
 import busImg from "../img/faq-img/bus.png";
 import studentsImg from "../img/faq-img/students.png";
 import teacherImg from "../img/faq-img/teacher.png";
-import { Footer } from "../components/Footer";
 
 export const Home = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -69,7 +70,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
       <section ref={faqRef} className="faq" id="faq">
+        <Advantages />
         <div className="faq__wrapper">
           <div className="faq__wrapper-item">
             <img src={busImg} alt="learn wherever" className="faq__img" />
