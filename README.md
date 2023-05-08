@@ -31,4 +31,4 @@ This is a web application that allows users to create and study flashcards. User
 
 ### Have fun studying with the Flashcard App!
 
-Link to application: https://quizportall.netlify.app
+Link to application: https://quizportal.pl/

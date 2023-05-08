@@ -26,7 +26,7 @@ export const Home = () => {
   const [user]: any = useAuthState(auth);
   const handleScrollToFAQ = () => {
     if (faqRef.current !== null) {
-      faqRef.current.scrollIntoView({ behavior: "smooth" });
+      faqRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
   return (
