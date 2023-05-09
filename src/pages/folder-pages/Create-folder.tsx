@@ -9,12 +9,12 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { auth, db } from "../../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useEffect, useState } from "react";
+import { db } from "../../config/firebase";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
 import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
+import { UserContext } from "../../config/userContext";
 
 export interface CreateFormData {
   title: string;
@@ -37,7 +37,7 @@ export const schema = yup.object().shape({
 export const CreateFolder = () => {
   const navigate = useNavigate();
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const [cardsCount, setCardsCount] = useState(2);
   const [foldersCount, setFoldersCount] = useState(0);
   const {

@@ -1,11 +1,12 @@
 //main imports
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { signInWithGoogle } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Advantages } from "../components/Advantages";
+import { UserContext } from "../config/userContext";
 
 //home img
 import arrowImg from "../img/home-blocks/arrow.png";
@@ -23,7 +24,7 @@ export const Home = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement>(null);
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const handleScrollToFAQ = () => {
     if (faqRef.current !== null) {
       faqRef.current.scrollIntoView({ behavior: "smooth", block: "start" });

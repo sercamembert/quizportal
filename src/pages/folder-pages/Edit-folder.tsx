@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,18 +9,18 @@ import {
   getDoc,
   writeBatch,
 } from "firebase/firestore";
-import { auth, db } from "../../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { db } from "../../config/firebase";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
 import { schema, CreateFormData } from "./Create-folder";
 import { EditFlashcardsParams } from "../../components/Interfaces";
+import { UserContext } from "../../config/userContext";
 
 export const EditFolder = () => {
   const navigate = useNavigate();
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const [cardsCount, setCardsCount] = useState(2);
   const { folderId, cards } = useParams<EditFlashcardsParams>();
   const [folderUser, setFolderUser] = useState();

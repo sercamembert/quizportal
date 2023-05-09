@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   collection,
@@ -10,21 +10,22 @@ import {
   writeBatch,
   getDoc,
 } from "firebase/firestore";
-import { auth, db } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
+
 import { UserNotLogged } from "../../components/User-not-logged";
 import {
   FolderI,
   FlashcardI,
   FolderFlashcardsParams,
 } from "../../components/Interfaces";
+import { UserContext } from "../../config/userContext";
 
 export const FolderFlashcards = () => {
   const { folderId } = useParams<FolderFlashcardsParams>();
   const [flashcards, setFlashcards] = useState<FlashcardI[]>([]);
   const [folder, setFolder] = useState<FolderI | null>(null);
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const navigate = useNavigate();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);

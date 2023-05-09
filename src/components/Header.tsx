@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState, MouseEvent, useContext } from "react";
 import { Link } from "react-router-dom";
 import { auth, signInWithGoogle } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
+import { UserContext } from "../config/userContext";
 
 export const Header = () => {
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
