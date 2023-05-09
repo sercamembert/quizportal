@@ -20,3 +20,11 @@ export interface EditFlashcardsParams {
   cards?: string;
   [key: string]: string | undefined;
 }
+
+export interface CreateFormData {
+  title: string;
+  cards: {
+    frontSite: string;
+    backSite: string;
+  }[];
+}
