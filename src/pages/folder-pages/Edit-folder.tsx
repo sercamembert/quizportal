@@ -15,12 +15,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleAddCard, handleTextareaInput } from "./folder-form-methods";
 import { schema, CreateFormData } from "./Create-folder";
-
-interface EditFlashcardsParams {
-  folderId: string;
-  cards?: string;
-  [key: string]: string | undefined;
-}
+import { EditFlashcardsParams } from "../../components/Interfaces";
 
 export const EditFolder = () => {
   const navigate = useNavigate();
@@ -130,12 +125,10 @@ export const EditFolder = () => {
   };
 
   const handleRemoveCard = (index: number) => {
-    setCardsCount((prevCount) => prevCount - 1);
     const cards = getValues("cards");
-    setValue(
-      "cards",
-      cards.filter((_: any, i: number) => i !== index)
-    );
+    const updatedCards = [...cards.slice(0, index), ...cards.slice(index + 1)];
+    setValue("cards", updatedCards);
+    setCardsCount(updatedCards.length);
   };
 
   return (

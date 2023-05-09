@@ -5,12 +5,7 @@ import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
-interface FolderI {
-  id: string;
-  title: string;
-  userId: string;
-  username: string;
-}
+import { FolderI } from "../../components/Interfaces";
 
 export const UserFolders = () => {
   const [user] = useAuthState(auth);

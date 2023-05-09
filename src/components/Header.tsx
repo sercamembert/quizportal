@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { auth, signInWithGoogle } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
 
 export const Header = () => {
-  const [user]: any = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,7 +23,8 @@ export const Header = () => {
     }
 
     function handleClickOutside(event: any) {
-      if (event.target.closest(".header__profile-image-container") === null) {
+      const targetElement = event.target as HTMLElement;
+      if (targetElement.closest(".header__profile-image-container") === null) {
         setIsDropdownOpen(false);
       }
     }
@@ -110,7 +111,7 @@ export const Header = () => {
                 <div className="dropdown__profil">
                   <div className="dropdown__img">
                     <img
-                      src={user?.photoURL}
+                      src={user?.photoURL ?? undefined}
                       alt="user profile"
                       className="header__profile header__profile--dropdown"
                     />

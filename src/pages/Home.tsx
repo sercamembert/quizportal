@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 import { signInWithGoogle } from "../config/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Advantages } from "../components/Advantages";
 
@@ -23,7 +23,7 @@ export const Home = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const navigate = useNavigate();
   const faqRef = useRef<HTMLDivElement>(null);
-  const [user]: any = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const handleScrollToFAQ = () => {
     if (faqRef.current !== null) {
       faqRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
