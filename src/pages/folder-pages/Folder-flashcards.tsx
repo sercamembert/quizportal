@@ -10,7 +10,7 @@ import {
   writeBatch,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
 import { UserNotLogged } from "../../components/User-not-logged";
@@ -19,13 +19,14 @@ import {
   FlashcardI,
   FolderFlashcardsParams,
 } from "../../components/Interfaces";
-import { UserContext } from "../../config/userContext";
+
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const FolderFlashcards = () => {
   const { folderId } = useParams<FolderFlashcardsParams>();
   const [flashcards, setFlashcards] = useState<FlashcardI[]>([]);
   const [folder, setFolder] = useState<FolderI | null>(null);
-  const user = useContext(UserContext);
+  const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -33,6 +34,7 @@ export const FolderFlashcards = () => {
   const [isActionsShowed, setIsActionsShowed] = useState(false);
   const [isTermsShow, serIsTermsShow] = useState(true);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isShufle, setIsShufle] = useState(false);
 
   useEffect(() => {
     const fetchFlashcards = async () => {
@@ -149,13 +151,21 @@ export const FolderFlashcards = () => {
             onClick={handleCardClick}
           >
             <div className="front">
-              <p>{flashcards[currentCardIndex]?.frontSite}</p>
+              <p>
+                {isShufle
+                  ? flashcards[currentCardIndex]?.backSite
+                  : flashcards[currentCardIndex]?.frontSite}
+              </p>
             </div>
             <div
               className="back"
               style={{ opacity: !isFlipped ? 0 : undefined }}
             >
-              <p>{flashcards[currentCardIndex]?.backSite}</p>
+              <p>
+                {isShufle
+                  ? flashcards[currentCardIndex]?.frontSite
+                  : flashcards[currentCardIndex]?.backSite}
+              </p>
             </div>
           </div>
           <div className="flashcards__buttons">
@@ -208,6 +218,10 @@ export const FolderFlashcards = () => {
                 )}
               </div>
               <div className="flashcards__show-actions">
+                <i
+                  className="fa-solid fa-shuffle"
+                  onClick={() => setIsShufle(!isShufle)}
+                ></i>
                 <i
                   className="fa-solid fa-gear"
                   onClick={() => setIsActionsShowed(!isActionsShowed)}

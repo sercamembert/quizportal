@@ -6,10 +6,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
-import { UserContext } from "../config/userContext";
 
 export const Header = () => {
-  const user = useContext(UserContext);
+  const [user] = useAuthState(auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);

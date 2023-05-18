@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { UserNotLogged } from "../../components/User-not-logged";
 import { FolderI } from "../../components/Interfaces";
-import { UserContext } from "../../config/userContext";
+
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const UserFolders = () => {
-  const user = useContext(UserContext);
+  const [user] = useAuthState(auth);
   const [folders, setFolders] = useState<FolderI[]>([]);
   const navigate = useNavigate();
   useEffect(() => {

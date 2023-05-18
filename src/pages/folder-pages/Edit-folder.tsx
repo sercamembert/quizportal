@@ -1,10 +1,12 @@
 import { UserNotLogged } from "../../components/User-not-logged";
 import { CreateForm } from "../../components/CreateForm";
 import { useContext } from "react";
-import { UserContext } from "../../config/userContext";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../config/firebase";
 
 export const EditFolder = () => {
-  const user = useContext(UserContext);
+  const [user] = useAuthState(auth);
 
   return (
     <div className="wrapper">

@@ -106,15 +106,19 @@
     right: 10px;
     margin-left: auto;
     display: flex;
+    gap: 15px;
     justify-content: center;
     align-items: center;
     color: $color-dark-grey;
     font-size: 25px;
-    transition: 0.3s;
-    &:hover {
-      cursor: pointer;
-      color: $color-grey;
-      transform: scale(1.1);
+
+    i {
+      transition: 0.3s;
+      &:hover {
+        cursor: pointer;
+        color: $color-grey;
+        transform: scale(1.1);
+      }
     }
   }
 

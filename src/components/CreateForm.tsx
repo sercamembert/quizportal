@@ -13,7 +13,7 @@ import {
   addDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -21,7 +21,8 @@ import {
   handleTextareaInput,
 } from "../pages/folder-pages/folder-form-methods";
 import { EditFlashcardsParams, CreateFormData } from "./Interfaces";
-import { UserContext } from "../config/userContext";
+
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const schema = yup.object().shape({
   title: yup.string().required("You must add title"),
@@ -36,7 +37,7 @@ export const schema = yup.object().shape({
 export const CreateForm = () => {
   const navigate = useNavigate();
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const user = useContext(UserContext);
+  const [user] = useAuthState(auth);
   const [cardsCount, setCardsCount] = useState(2);
   const { folderId, cards } = useParams<EditFlashcardsParams>();
   const [folderUser, setFolderUser] = useState();
