@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   collection,
@@ -13,7 +13,7 @@ import {
 import { auth, db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
-import { UserNotLogged } from "../../components/User-not-logged";
+import { LoginPage } from "../login-pages/Login";
 import {
   FolderI,
   FlashcardI,
@@ -255,7 +255,7 @@ export const FolderFlashcards = () => {
           </div>
         </div>
       ) : (
-        <UserNotLogged />
+        <LoginPage />
       )}
       {isShareModalOpen && (
         <div className="share-modal">

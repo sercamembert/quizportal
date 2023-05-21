@@ -4,7 +4,7 @@ import { passwordReset } from "../../config/firebase";
 import waveImg from "../../img/home-blocks/wave.png";
 import waveUpImg from "../../img/vectors/wave.svg";
 import logoImg from "../../img/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
