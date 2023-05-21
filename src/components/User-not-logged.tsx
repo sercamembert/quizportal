@@ -1,5 +1,3 @@
-import { signInWithPopup, signInWithRedirect } from "firebase/auth";
-import { auth, provider } from "../config/firebase";
 import { signInWithGoogle } from "../config/firebase";
 export const UserNotLogged = () => {
   return (

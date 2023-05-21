@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState, MouseEvent, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { auth, signInWithGoogle } from "../config/firebase";
+import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
+import defaultUserImg from "../img/user.png";
 
 export const Header = () => {
   const [user] = useAuthState(auth);
@@ -90,17 +91,17 @@ export const Header = () => {
       >
         {!user ? (
           <div className="header__signIn">
-            <span className="header__login" onClick={signInWithGoogle}>
+            <Link to="/login" className="header__login">
               Login
-            </span>
-            <span className="header__signup" onClick={signInWithGoogle}>
+            </Link>
+            <Link to="/signup" className="header__signup">
               Sign up
-            </span>
+            </Link>
           </div>
         ) : (
           <div className="header__profile-image-container">
             <img
-              src={user?.photoURL ?? ""}
+              src={user?.photoURL ?? defaultUserImg}
               alt="user profile"
               className="header__profile header__profile-main"
               tabIndex={0}
@@ -111,7 +112,7 @@ export const Header = () => {
                 <div className="dropdown__profil">
                   <div className="dropdown__img">
                     <img
-                      src={user?.photoURL ?? undefined}
+                      src={user?.photoURL ?? defaultUserImg}
                       alt="user profile"
                       className="header__profile header__profile--dropdown"
                     />

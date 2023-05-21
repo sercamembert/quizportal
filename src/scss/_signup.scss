@@ -1,0 +1,139 @@
+.signup {
+  &__wrapper {
+    @include section-wrapper;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__form {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 90%;
+    @media (min-width: 768px) {
+      width: 670px;
+    }
+  }
+
+  &__google {
+    width: calc(100% + 15px);
+    border: 1px solid lightgray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    span {
+      font-size: 20px;
+      font-family: $font-Work-Sans;
+      font-weight: bold;
+    }
+    &:hover {
+      cursor: pointer;
+      border-color: $color-blue-main;
+    }
+  }
+
+  &__line {
+    border: none;
+    border-top: 1px solid lightgray;
+    width: 100%;
+  }
+
+  &__message {
+    text-decoration: none;
+    color: $color-blue-main;
+  }
+}
+
+.signup-wave {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  @media (max-width: 1600px) {
+    display: none;
+  }
+}
+
+.signup-waveUp {
+  position: absolute;
+  top: 0;
+  left: -20px;
+  @media (max-width: 1600px) {
+    display: none;
+  }
+}
+
+.signup-input {
+  width: 100%;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  &__title {
+    width: 100%;
+    font-size: 20px;
+    font-family: $font-Work-Sans;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__reset {
+    font-weight: 500;
+    font-size: 17px;
+    color: $color-blue-main;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  input {
+    width: 100%;
+    height: 60px;
+    border: 1px solid lightgray;
+    padding-left: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-size: 17px;
+  }
+
+  &__error {
+    color: rgb(203, 50, 50);
+  }
+}
+
+.signup-btn {
+  width: calc(100% + 15px);
+  background-color: $color-blue-main;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  align-self: flex-start;
+  transition: 0.3s;
+  border: none;
+  &:hover {
+    background-color: $color-yellow;
+    color: $color-dark-grey;
+    cursor: pointer;
+  }
+}

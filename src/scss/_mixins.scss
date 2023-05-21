@@ -12,6 +12,8 @@
 }
 
 @mixin login-btn {
+  color: $color-dark-grey;
+  text-decoration: none;
   padding: 10px;
   border-radius: 10px;
   transition: 0.3s;
@@ -23,6 +25,8 @@
 }
 
 @mixin signup-btn {
+  color: $color-dark-grey;
+  text-decoration: none;
   background-color: $color-yellow;
   padding: 8px;
   border-radius: 10px;

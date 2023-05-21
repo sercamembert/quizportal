@@ -7,6 +7,10 @@ import { CreateFolder } from "./pages/folder-pages/Create-folder";
 import { UserFolders } from "./pages/folder-pages/User-folders";
 import { FolderFlashcards } from "./pages/folder-pages/Folder-flashcards";
 import { EditFolder } from "./pages/folder-pages/Edit-folder";
+import { LoginPage } from "./pages/login-pages/Login";
+import { SignUpPage } from "./pages/login-pages/Signup";
+import { UserProfilePage } from "./pages/UserProfile";
+import { ForgotPassword } from "./pages/login-pages/forgot-password";
 
 function App() {
   return (
@@ -23,6 +27,10 @@ function App() {
               element={<FolderFlashcards />}
             />
             <Route path="/edit-flashcards/:folderId" element={<EditFolder />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/userprofile" element={<UserProfilePage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
         </Router>
       </div>
