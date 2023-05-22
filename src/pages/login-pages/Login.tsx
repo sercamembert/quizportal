@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { User, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 interface UserI {
@@ -45,6 +45,9 @@ export const LoginPage = () => {
         data.password
       );
       await updateProfile(user, { displayName: data.username });
+      const userToSave: User | null = user;
+      localStorage.setItem("user", JSON.stringify(userToSave));
+
       const { from } = location.state || {
         from: { pathname: "/user-folders" },
       };

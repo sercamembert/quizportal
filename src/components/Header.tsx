@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
 import defaultUserImg from "../img/user.png";
+import { UserContext } from "../config/userContext";
 
 export const Header = () => {
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,7 +43,9 @@ export const Header = () => {
 
   const signUserOut = async () => {
     await signOut(auth);
+    localStorage.removeItem("user");
     navigate("/");
+    window.location.reload();
   };
 
   return (

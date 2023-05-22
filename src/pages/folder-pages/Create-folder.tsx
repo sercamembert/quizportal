@@ -1,11 +1,10 @@
 import { LoginPage } from "../login-pages/Login";
 import { CreateForm } from "../../components/CreateForm";
-
-import { auth } from "../../config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useContext } from "react";
+import { UserContext } from "../../config/userContext";
 
 export const CreateFolder = () => {
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
 
   return (
     <>

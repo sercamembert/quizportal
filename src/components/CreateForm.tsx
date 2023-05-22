@@ -21,8 +21,7 @@ import {
   handleTextareaInput,
 } from "../pages/folder-pages/folder-form-methods";
 import { EditFlashcardsParams, CreateFormData } from "./Interfaces";
-
-import { useAuthState } from "react-firebase-hooks/auth";
+import { UserContext } from "../config/userContext";
 
 export const schema = yup.object().shape({
   title: yup.string().required("You must add title"),
@@ -37,7 +36,7 @@ export const schema = yup.object().shape({
 export const CreateForm = () => {
   const navigate = useNavigate();
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const [user] = useAuthState(auth);
+  const user = useContext(UserContext);
   const [cardsCount, setCardsCount] = useState(2);
   const { folderId, cards } = useParams<EditFlashcardsParams>();
   const [folderUser, setFolderUser] = useState();

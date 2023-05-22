@@ -6,7 +6,11 @@ import googleImg from "../../img/icons/google.png";
 import { Link, useLocation } from "react-router-dom";
 import { auth, signInWithGoogle } from "../../config/firebase";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  User,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -52,6 +56,8 @@ export const SignUpPage = () => {
         data.password
       );
       await updateProfile(user, { displayName: data.username });
+      const userToSave: User | null = user;
+      localStorage.setItem("user", JSON.stringify(userToSave));
       const { from } = location.state || {
         from: { pathname: "/user-folders" },
       };
