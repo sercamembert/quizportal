@@ -5,7 +5,7 @@ import logoImg from "../../img/logo.png";
 import googleImg from "../../img/icons/google.png";
 import { Link, useLocation } from "react-router-dom";
 import { auth, signInWithGoogle } from "../../config/firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   User,
   createUserWithEmailAndPassword,
@@ -75,6 +75,28 @@ export const SignUpPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const { from } = location.state || {
+        from: { pathname: "/" },
+      };
+      window.location.replace(from.pathname);
+    } else {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          const userToSave: User | null = user;
+          localStorage.setItem("user", JSON.stringify(userToSave));
+          const { from } = location.state || {
+            from: { pathname: "/" },
+          };
+          window.location.replace(from.pathname);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [location.state]);
 
   return (
     <div className="signup__wrapper">
