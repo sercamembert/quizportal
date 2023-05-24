@@ -17,7 +17,7 @@ export const EditFolder = () => {
           </div>
         </div>
       ) : (
-        <LoginPage />
+        <h1>404 error</h1>
       )}
     </>
   );

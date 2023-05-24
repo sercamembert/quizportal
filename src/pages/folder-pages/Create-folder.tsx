@@ -15,7 +15,7 @@ export const CreateFolder = () => {
           </div>
         </div>
       ) : (
-        <LoginPage />
+        <h1>404 error</h1>
       )}
     </>
   );

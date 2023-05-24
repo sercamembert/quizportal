@@ -89,7 +89,7 @@ export const FolderFlashcards = () => {
         });
 
         await deleteDoc(folderRef);
-        navigate("/user-folders");
+        navigate("/");
       }
     } catch (error) {
       console.error("Błąd podczas usuwania dokumentu: ", error);
@@ -253,7 +253,7 @@ export const FolderFlashcards = () => {
           </div>
         </div>
       ) : (
-        <LoginPage />
+        <h1>404 error</h1>
       )}
       {isShareModalOpen && (
         <div className="share-modal">
@@ -264,6 +264,7 @@ export const FolderFlashcards = () => {
               onClick={() => {
                 handleCopyClick();
                 setIsShareModalOpen(false);
+                setIsActionsShowed(false);
               }}
             >
               Copy Link

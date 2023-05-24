@@ -138,7 +138,7 @@ export const Header = () => {
                 </div>
                 <div className="dropdown__link-container">
                   <Link
-                    to="/user-folders"
+                    to="/"
                     className="dropdown__link"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >

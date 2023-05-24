@@ -8,7 +8,7 @@ import { auth, signInWithGoogle } from "../../config/firebase";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
@@ -35,6 +35,28 @@ export const LoginPage = () => {
     resolver: yupResolver(validationSchema),
   });
 
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const { from } = location.state || {
+        from: { pathname: "/" },
+      };
+      window.location.replace(from.pathname);
+    } else {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          const userToSave: User | null = user;
+          localStorage.setItem("user", JSON.stringify(userToSave));
+          const { from } = location.state || {
+            from: { pathname: "/" },
+          };
+          window.location.replace(from.pathname);
+        }
+      });
+      return unsubscribe;
+    }
+  }, [location.state]);
+
   const handleFormSubmit = async (data: UserI) => {
     try {
       await validationSchema.validate(data, { abortEarly: false });
@@ -49,7 +71,7 @@ export const LoginPage = () => {
       localStorage.setItem("user", JSON.stringify(userToSave));
 
       const { from } = location.state || {
-        from: { pathname: "/user-folders" },
+        from: { pathname: "/" },
       };
       window.location.replace(from.pathname);
     } catch (error) {

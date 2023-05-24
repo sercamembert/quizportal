@@ -59,7 +59,7 @@ export const SignUpPage = () => {
       const userToSave: User | null = user;
       localStorage.setItem("user", JSON.stringify(userToSave));
       const { from } = location.state || {
-        from: { pathname: "/user-folders" },
+        from: { pathname: "/" },
       };
       window.location.replace(from.pathname);
     } catch (error) {

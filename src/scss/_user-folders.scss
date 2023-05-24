@@ -73,6 +73,10 @@
   &__heading {
     @include heading;
     color: $color-dark-grey;
+    font-size: 22px;
+    @media (min-width: 768px) {
+      font-size: 35px;
+    }
   }
 }
 
