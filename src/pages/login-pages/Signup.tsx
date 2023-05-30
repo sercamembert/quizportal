@@ -15,6 +15,8 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FirebaseError } from "firebase/app";
+import LoadingSpinner from "../../components/Spinner";
+import { fail } from "assert";
 
 interface CreateUser {
   username: string;
@@ -43,13 +45,13 @@ export const SignUpPage = () => {
     resolver: yupResolver(validationSchema),
   });
   const [registerError, setRegisterError] = useState<string>("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
 
   const handleSignUp = async (data: CreateUser) => {
     try {
+      setIsLoading(true);
       await validationSchema.validate(data, { abortEarly: false });
-
       const { user } = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -61,7 +63,9 @@ export const SignUpPage = () => {
       const { from } = location.state || {
         from: { pathname: "/" },
       };
+      window.location.reload();
       window.location.replace(from.pathname);
+      setIsLoading(false);
     } catch (error) {
       if (error instanceof FirebaseError) {
         const errorMessage = error.message;
@@ -99,75 +103,91 @@ export const SignUpPage = () => {
   }, [location.state]);
 
   return (
-    <div className="signup__wrapper">
-      <img src={waveImg} alt="waveImg" className="signup-wave" />
-      <object
-        data={waveUpImg}
-        type="image/svg+xml"
-        className="signup-waveUp"
-      ></object>
-      <form onSubmit={handleSubmit(handleSignUp)} className="signup__form">
-        <img src={logoImg} alt="quizportal.pl" />
-        <div className="signup__google" onClick={signInWithGoogle} tabIndex={0}>
-          <img src={googleImg} alt="sign up with google" />
-          <span>Sign Up with Google</span>
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="signup__wrapper">
+          <img src={waveImg} alt="waveImg" className="signup-wave" />
+          <object
+            data={waveUpImg}
+            type="image/svg+xml"
+            className="signup-waveUp"
+          ></object>
+          <form onSubmit={handleSubmit(handleSignUp)} className="signup__form">
+            <img src={logoImg} alt="quizportal.pl" />
+            <div
+              className="signup__google"
+              onClick={signInWithGoogle}
+              tabIndex={0}
+            >
+              <img src={googleImg} alt="sign up with google" />
+              <span>Sign Up with Google</span>
+            </div>
+            <hr className="signup__line" />
+            <div className="signup-input">
+              <span className="signup-input__title">Username</span>
+              <input
+                type="text"
+                placeholder="Username"
+                {...register("username")}
+              />
+              {errors.username && (
+                <span className="signup-input__error">
+                  {errors.username.message}
+                </span>
+              )}
+            </div>
+            <div className="signup-input">
+              <span className="signup-input__title">Email</span>
+              <input type="text" placeholder="Email" {...register("email")} />
+              {errors.email && (
+                <span className="signup-input__error">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
+            <div className="signup-input">
+              <span className="signup-input__title">Password</span>
+              <input
+                type="password"
+                placeholder="Password"
+                {...register("password")}
+              />
+              {errors.password && (
+                <span className="signup-input__error">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+            <div className="signup-input">
+              <span className="signup-input__title">Confirm password</span>
+              <input
+                type="password"
+                placeholder="Confirm password"
+                {...register("confirmPassword")}
+              />
+              {errors.confirmPassword && (
+                <span className="signup-input__error">
+                  {errors.confirmPassword.message}
+                </span>
+              )}
+            </div>
+            {registerError && (
+              <p className="signup-input__error">{registerError}</p>
+            )}
+            <button type="submit" className="signup-btn">
+              Sign Up
+            </button>
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="signup__message">
+                Log in here
+              </Link>
+            </p>
+          </form>
         </div>
-        <hr className="signup__line" />
-        <div className="signup-input">
-          <span className="signup-input__title">Username</span>
-          <input type="text" placeholder="Username" {...register("username")} />
-          {errors.username && (
-            <span className="signup-input__error">
-              {errors.username.message}
-            </span>
-          )}
-        </div>
-        <div className="signup-input">
-          <span className="signup-input__title">Email</span>
-          <input type="text" placeholder="Email" {...register("email")} />
-          {errors.email && (
-            <span className="signup-input__error">{errors.email.message}</span>
-          )}
-        </div>
-        <div className="signup-input">
-          <span className="signup-input__title">Password</span>
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          {errors.password && (
-            <span className="signup-input__error">
-              {errors.password.message}
-            </span>
-          )}
-        </div>
-        <div className="signup-input">
-          <span className="signup-input__title">Confirm password</span>
-          <input
-            type="password"
-            placeholder="Confirm password"
-            {...register("confirmPassword")}
-          />
-          {errors.confirmPassword && (
-            <span className="signup-input__error">
-              {errors.confirmPassword.message}
-            </span>
-          )}
-        </div>
-        {registerError && (
-          <p className="signup-input__error">{registerError}</p>
-        )}
-        <button type="submit" className="signup-btn">
-          Sign Up
-        </button>
-        <p>
-          Already have an account?{" "}
-          <Link to="/login" className="signup__message">
-            Log in here
-          </Link>
-        </p>
-      </form>
-    </div>
+      )}
+    </>
   );
 };

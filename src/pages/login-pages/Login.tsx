@@ -9,8 +9,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
-import { User, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
+import LoadingSpinner from "../../components/Spinner";
 
 interface UserI {
   email: string;
@@ -26,6 +27,7 @@ const validationSchema = yup.object().shape({
 export const LoginPage = () => {
   const [errorMessage, setLoginError] = useState<String>("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const {
     register,
@@ -36,29 +38,20 @@ export const LoginPage = () => {
   });
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const { from } = location.state || {
-        from: { pathname: "/" },
-      };
-      window.location.replace(from.pathname);
-    } else {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        if (user) {
-          const userToSave: User | null = user;
-          localStorage.setItem("user", JSON.stringify(userToSave));
-          const { from } = location.state || {
-            from: { pathname: "/" },
-          };
-          window.location.replace(from.pathname);
-        }
-      });
-      return unsubscribe;
-    }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoading(true);
+        window.location.replace("/");
+      } else {
+        setIsLoading(false);
+      }
+    });
+    return unsubscribe;
   }, [location.state]);
 
   const handleFormSubmit = async (data: UserI) => {
     try {
+      setIsLoading(true);
       await validationSchema.validate(data, { abortEarly: false });
       setEmail(data.email);
       const { user } = await signInWithEmailAndPassword(
@@ -67,9 +60,6 @@ export const LoginPage = () => {
         data.password
       );
       await updateProfile(user, { displayName: data.username });
-      const userToSave: User | null = user;
-      localStorage.setItem("user", JSON.stringify(userToSave));
-
       const { from } = location.state || {
         from: { pathname: "/" },
       };
@@ -87,58 +77,74 @@ export const LoginPage = () => {
       }
     }
   };
-
   return (
-    <div className="signup__wrapper">
-      <img src={waveImg} alt="waveImg" className="signup-wave" />
-      <object
-        data={waveUpImg}
-        type="image/svg+xml"
-        className="signup-waveUp"
-      ></object>
-      <form
-        action="post"
-        className="signup__form"
-        onSubmit={handleSubmit(handleFormSubmit)}
-      >
-        <img src={logoImg} alt="quizportal.pl" />
-        <div className="signup__google" onClick={signInWithGoogle} tabIndex={0}>
-          <img src={googleImg} alt="sign up with google" />
-          <span>Sign In with Google</span>
-        </div>
-        <hr className="signup__line" />
-        <div className="signup-input">
-          <span className="signup-input__title">Email</span>
-          <input type="text" placeholder="Email" {...register("email")} />
-          <span className="signup-input__error">{errors.email?.message}</span>
-        </div>
-        <div className="signup-input">
-          <div className="signup-input__title">
-            <span>Password</span>
-            <span className="signup-input__reset" tabIndex={0}>
-              <Link to="/forgot-password" className="signup__message">
-                Forgot password?
+    <>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="signup__wrapper">
+          <img src={waveImg} alt="waveImg" className="signup-wave" />
+          <object
+            data={waveUpImg}
+            type="image/svg+xml"
+            className="signup-waveUp"
+          ></object>
+          <form
+            action="post"
+            className="signup__form"
+            onSubmit={handleSubmit(handleFormSubmit)}
+          >
+            <img src={logoImg} alt="quizportal.pl" />
+            <div
+              className="signup__google"
+              onClick={() => {
+                signInWithGoogle();
+                setIsLoading(true);
+              }}
+              tabIndex={0}
+            >
+              <img src={googleImg} alt="sign up with google" />
+              <span>Sign In with Google</span>
+            </div>
+            <hr className="signup__line" />
+            <div className="signup-input">
+              <span className="signup-input__title">Email</span>
+              <input type="text" placeholder="Email" {...register("email")} />
+              <span className="signup-input__error">
+                {errors.email?.message}
+              </span>
+            </div>
+            <div className="signup-input">
+              <div className="signup-input__title">
+                <span>Password</span>
+                <span className="signup-input__reset" tabIndex={0}>
+                  <Link to="/forgot-password" className="signup__message">
+                    Forgot password?
+                  </Link>
+                </span>
+              </div>
+              <input
+                type="password"
+                placeholder="Password"
+                {...register("password")}
+              />
+              <span className="signup-input__error">
+                {errors.password?.message}
+              </span>
+            </div>
+            {errorMessage && (
+              <p className="signup-input__error">{errorMessage}</p>
+            )}
+            <button className="signup-btn">Sign In</button>
+            <p>
+              Don't have account?{" "}
+              <Link to="/signup" className="signup__message">
+                Create
               </Link>
-            </span>
-          </div>
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          <span className="signup-input__error">
-            {errors.password?.message}
-          </span>
+            </p>
+          </form>
         </div>
-        {errorMessage && <p className="signup-input__error">{errorMessage}</p>}
-        <button className="signup-btn">Sign In</button>
-        <p>
-          Don't have account?{" "}
-          <Link to="/signup" className="signup__message">
-            Create
-          </Link>
-        </p>
-      </form>
-    </div>
+      )}
+    </>
   );
 };

@@ -6,13 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { LoginPage } from "../login-pages/Login";
 import { FolderI } from "../../components/Interfaces";
 import { UserContext } from "../../config/userContext";
+import LoadingSpinner from "../../components/Spinner";
 
 export const UserFolders = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const user = useContext(UserContext);
   const [folders, setFolders] = useState<FolderI[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchFolders = async () => {
+      setIsLoading(true);
       const q = query(
         collection(db, "Folders"),
         where("userId", "==", user?.uid)
@@ -23,13 +26,16 @@ export const UserFolders = () => {
         ...doc.data(),
       })) as FolderI[];
       setFolders(foldersData);
+      setIsLoading(false);
     };
     fetchFolders();
   }, [user]);
 
   return (
     <div>
-      {folders.length > 0 ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : folders.length > 0 ? (
         <div className="folders">
           <h1 className="folders__heading">Created sets</h1>
           <div className="search"></div>

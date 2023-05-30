@@ -8,6 +8,7 @@ export interface FolderI {
 export interface FlashcardI {
   frontSite: string;
   backSite: string;
+  id: number;
 }
 
 export interface FolderFlashcardsParams {

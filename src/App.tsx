@@ -4,7 +4,6 @@ import { Home } from "./pages/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { CreateFolder } from "./pages/folder-pages/Create-folder";
-import { UserFolders } from "./pages/folder-pages/User-folders";
 import { FolderFlashcards } from "./pages/folder-pages/Folder-flashcards";
 import { EditFolder } from "./pages/folder-pages/Edit-folder";
 import { LoginPage } from "./pages/login-pages/Login";

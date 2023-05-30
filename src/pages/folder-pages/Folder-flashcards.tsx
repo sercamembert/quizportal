@@ -12,13 +12,13 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { LoginPage } from "../login-pages/Login";
 import {
   FolderI,
   FlashcardI,
   FolderFlashcardsParams,
 } from "../../components/Interfaces";
 import { UserContext } from "../../config/userContext";
+import LoadingSpinner from "../../components/Spinner";
 
 export const FolderFlashcards = () => {
   const { folderId } = useParams<FolderFlashcardsParams>();
@@ -33,8 +33,10 @@ export const FolderFlashcards = () => {
   const [isTermsShow, serIsTermsShow] = useState(true);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isShufle, setIsShufle] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchFlashcards = async () => {
       const q = query(collection(db, `Folders/${folderId}/Flashcards`));
       const querySnapshot = await getDocs(q);
@@ -51,6 +53,7 @@ export const FolderFlashcards = () => {
         const folderSnapshot = await getDoc(folderRef);
         const folderData = folderSnapshot.data() as FolderI;
         setFolder(folderData);
+        setIsLoading(false);
       }
     };
     fetchFolder();
@@ -139,7 +142,9 @@ export const FolderFlashcards = () => {
 
   return (
     <div className="flashcards">
-      {user ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : user ? (
         <div className="flashcards__wrapper">
           <span className="flashcards__title">{folder?.title}</span>
           <div
