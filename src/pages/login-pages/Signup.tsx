@@ -16,13 +16,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FirebaseError } from "firebase/app";
 import LoadingSpinner from "../../components/Spinner";
-import { fail } from "assert";
 
 interface CreateUser {
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
+  displayName: string;
 }
 
 const validationSchema = Yup.object().shape({
@@ -58,14 +58,7 @@ export const SignUpPage = () => {
         data.password
       );
       await updateProfile(user, { displayName: data.username });
-      const userToSave: User | null = user;
-      localStorage.setItem("user", JSON.stringify(userToSave));
-      const { from } = location.state || {
-        from: { pathname: "/" },
-      };
-      window.location.reload();
-      window.location.replace(from.pathname);
-      setIsLoading(false);
+      window.location.replace("/login");
     } catch (error) {
       if (error instanceof FirebaseError) {
         const errorMessage = error.message;
@@ -79,28 +72,6 @@ export const SignUpPage = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      const { from } = location.state || {
-        from: { pathname: "/" },
-      };
-      window.location.replace(from.pathname);
-    } else {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        if (user) {
-          const userToSave: User | null = user;
-          localStorage.setItem("user", JSON.stringify(userToSave));
-          const { from } = location.state || {
-            from: { pathname: "/" },
-          };
-          window.location.replace(from.pathname);
-        }
-      });
-      return unsubscribe;
-    }
-  }, [location.state]);
 
   return (
     <>
@@ -116,15 +87,6 @@ export const SignUpPage = () => {
           ></object>
           <form onSubmit={handleSubmit(handleSignUp)} className="signup__form">
             <img src={logoImg} alt="quizportal.pl" />
-            <div
-              className="signup__google"
-              onClick={signInWithGoogle}
-              tabIndex={0}
-            >
-              <img src={googleImg} alt="sign up with google" />
-              <span>Sign Up with Google</span>
-            </div>
-            <hr className="signup__line" />
             <div className="signup-input">
               <span className="signup-input__title">Username</span>
               <input

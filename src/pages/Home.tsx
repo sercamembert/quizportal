@@ -1,5 +1,6 @@
 //main imports
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Advantages } from "../components/Advantages";
@@ -28,6 +29,7 @@ export const Home = () => {
       faqRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
   return (
     <div className="wrapper">
       {user ? (

@@ -104,7 +104,7 @@ export const LoginPage = () => {
               tabIndex={0}
             >
               <img src={googleImg} alt="sign up with google" />
-              <span>Sign In with Google</span>
+              <span>Log In with Google</span>
             </div>
             <hr className="signup__line" />
             <div className="signup-input">
