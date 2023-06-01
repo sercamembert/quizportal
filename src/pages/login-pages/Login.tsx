@@ -63,8 +63,10 @@ export const LoginPage = () => {
       const { from } = location.state || {
         from: { pathname: "/" },
       };
+      setIsLoading(false);
       window.location.replace(from.pathname);
     } catch (error) {
+      setIsLoading(false);
       if (error instanceof FirebaseError) {
         const errorMessage = error.message;
         if (errorMessage === "Firebase: Error (auth/wrong-password).") {
